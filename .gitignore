@@ -1,1 +1,5 @@
 .ruby-gemset
+
+# Ignore all stored requests, but keep the folder
+requests/*
+!requests/.gitkeep

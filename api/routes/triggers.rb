@@ -9,12 +9,16 @@ module Routing
           return { status: 'ok'}.to_json
         end
 
-        post '/?' do 
+        post '/catch.?:format?' do 
           trigger = JSON.parse(request.body.read)
-          binding.pry
-          trigger = Trigger.new(params)
           
-          # Return 200 ok no matter what
+          File.open(File.join(Api.root, "requests", "#{Time.now.strftime("%Y-%m-%d__%H:%M:%S")}.json"),"w") do |f|
+            f.write(JSON.pretty_generate(trigger))
+          end
+
+          binding.pry
+
+          # Return HTTP status code 200, no matter what happends
           content_type :json
           return { status: 'ok'}.to_json
         end 
